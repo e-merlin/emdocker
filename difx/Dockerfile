@@ -22,14 +22,14 @@ RUN wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCT
       && apt-get update && apt-get install -y intel-ipp-2019.5-075
       
 
-# FIXME needs vex2difx> ./configure --prefix=${DIFXROOT}  LEXLIB=
-RUN cd DiFX-2.6.2 && source setup.bash && cd applications/vex2difx/ && aclocal && libtoolize --copy --force && \
-  autoconf && autoheader && automake -a && ./configure --prefix=${DIFXROOT} LEXLIB=
-RUN cd DiFX-2.6.2 && source setup.bash && ./install-difx 
+# this complexity is  because vex2difx needs ./configure --prefix=${DIFXROOT}  LEXLIB= lex setup is wrong - could perhaps do with a copy of the Makefile.in
+
+RUN cd DiFX-2.6.2 &&  perl -p -i -e 's/\$\{LEXLIB\}//g' applications/vex2difx/configure.ac
+RUN cd DiFX-2.6.2 &&  /bin/bash -c  "source setup.bash && ./install-difx --nodoc"
 
 
 #TODO copy into own smaller as mult stage build
-
+#FROM debian:stable-slim
 
 
 
