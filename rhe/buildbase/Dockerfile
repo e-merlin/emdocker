@@ -7,7 +7,7 @@ LABEL  author = "Paul Harrison" \
 WORKDIR /usr/local/src
 
 RUN yum -y update && yum install -y autoconf automake binutils  \
-    gcc gcc-c++ libtool make patch pkgconfig gcc-fortran gnupg2 \
-    cmake git subversion bison flex doxygen  \
+    gcc gcc-c++ libtool make patch pkgconfig gcc-gfortran gnupg2 \
+    cmake git subversion bison flex doxygen python3 \
     && yum clean all
     

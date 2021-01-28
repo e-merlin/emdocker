@@ -29,7 +29,12 @@ RUN cd DiFX-2.6.2 &&  /bin/bash -c  "source setup.bash && ./install-difx --nodoc
 
 
 #TODO copy into own smaller as mult stage build
-#FROM debian:stable-slim
+FROM debian:stable-slim
+# try to install only the runtime
+RUN wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB && apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB && rm  GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB \
+      && echo deb https://apt.repos.intel.com/ipp all main > /etc/apt/sources.list.d/intel-ipp.list \
+      && apt-get update && apt-get install -y intel-ipp-2019.5-075
+
 
 
 
