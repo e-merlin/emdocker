@@ -2,7 +2,7 @@
 source /etc/profile.d/modules.sh
 module load mpi
 # to be able to run python installed executables
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/casauser/.local/bin
+export PATH=/home/casauser/.local/bin:$PATH
 #which is not standard!
 which() { type -P "$@"; }
 export -f which
