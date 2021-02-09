@@ -32,7 +32,7 @@ RUN source /etc/profile.d/modules.sh && module load mpi && \
 
 
 RUN git clone https://gitlab.com/ska-telescope/external/almacalc.git && cd almacalc && pip3 install --user .[highlevel] \
-    pip3 install --user  attr pandas uncertainties
+    && pip3 install --user  attr pandas uncertainties
 
 #get rid of the pip cache
 RUN  pip3 install --user --upgrade pip && pip3 cache purge
