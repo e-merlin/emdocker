@@ -1,11 +1,10 @@
-FROM jbo/astrobuild-rhe as builder
+FROM jbo/rhe-buildbase as builder
 
 LABEL  author = "Paul Harrison" \
        description = "casa deployment" \
        registry = "jbo/casa"
 
-#see https://www.atnf.csiro.au/vlbi/dokuwiki/doku.php/difx/installation
-
+#see https://casadocs.readthedocs.io/en/v6.4.0/notebooks/introduction.html?highlight=modular#Modular-Packages
 # needed at runtime 
 RUN yum install -y python3 libgfortran openmpi-devel
 
@@ -19,16 +18,16 @@ RUN yum install -y python3-devel
 USER casauser
 WORKDIR /home/casauser
 
-RUN pip3 install --user --index-url https://casa-pip.nrao.edu/repository/pypi-casa-release/simple casatools
-RUN pip3 install --user --index-url https://casa-pip.nrao.edu/repository/pypi-casa-release/simple casatasks
-RUN pip3 install --user --index-url https://casa-pip.nrao.edu/repository/pypi-casa-release/simple ipython wheel astropy
+RUN pip3 install --user casatasks==6.4.0.16
+RUN pip3 install --user  casatools
+RUN pip3 install --user ipython wheel astropy
 #NRAO recommend not doing this for casa6 - needs the dummy X server use xvfb-run casa - literally does not work at the moment
-#RUN pip3 install --user --index-url https://casa-pip.nrao.edu/repository/pypi-casa-release/simple casaplotms
+#RUN pip3 install --user  casaplotms==1.3.2
 
 
 #mpi not working in docker.....
 RUN source /etc/profile.d/modules.sh && module load mpi && \
-    pip3 install --user --index-url https://casa-pip.nrao.edu/repository/pypi-casa-release/simple casampi
+    pip3 install --user  casampi
 
 
 RUN git clone https://gitlab.com/ska-telescope/external/almacalc.git && cd almacalc && pip3 install --user .[highlevel] \
@@ -38,7 +37,7 @@ RUN git clone https://gitlab.com/ska-telescope/external/almacalc.git && cd almac
 RUN  pip3 install --user --upgrade pip && pip3 cache purge
 
 #runtime build below
-FROM jbo/astrorun-rhe
+FROM jbo/rhe-runbase
 
 RUN yum install -y python3 libgfortran openmpi \
     && yum clean all

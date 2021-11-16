@@ -2,7 +2,7 @@ Casa 6 Docker Image
 ===================
 
 This builds a docker image for casa 6 modular installation as per
-https://casa.nrao.edu/casadocs/casa-6.1.0/usingcasa/obtaining-and-installing
+https://casadocs.readthedocs.io/en/v6.4.0/notebooks/introduction.html?highlight=modular#Modular-Packages
 
 Tried a multi-stage build, but it did not save that much really as all that 
 is saved is the actual build tools
