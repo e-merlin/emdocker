@@ -1,8 +1,8 @@
-FROM debian:stable-slim
+FROM debian:bullseye-slim
 
 LABEL  author = "Paul Harrison" \
        description = "base run environment for debian" \
-       registry = "jbo/astrorun-deb"
+       registry = "jbo/deb-astrorun"
 
 WORKDIR /usr/local/src
 
