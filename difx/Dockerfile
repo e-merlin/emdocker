@@ -11,16 +11,21 @@ WORKDIR /usr/local/src
 
 RUN apt-get update && apt-get install -y  openmpi-bin libopenmpi-dev python libexpat1-dev fftw3-dev libgsl-dev \
      && apt-get clean  
-# would want to install pgplot5 too for some of the optional stuff (interactive?)
-
 
       
 RUN svn export https://svn.atnf.csiro.au/difx/master_tags/DiFX-2.6.2
 
+
+RUN wget ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot522.tar.gz && tar xvf pgplot522.tar.gz  && mkdir /usr/local/pgplot && cd /usr/local/pgplot \
+         && grep NUDRIV /usr/local/src/pgplot/drivers.list > drivers.list \
+         && perl -n -e 'if( /^! (GIDRIV|PNDRIV|PSDRIV)(.*)$/){print $1,$2,"\n"}' /usr/local/src/pgplot/drivers.list >>drivers.list \
+         &&  /usr/local/src/pgplot/makemake /usr/local/src/pgplot linux g77_gcc_aout \
+         && make FCOMPL=gfortran lib grfont.dat
+
 # this complexity is  because vex2difx needs ./configure --prefix=${DIFXROOT}  LEXLIB= lex setup is wrong - could perhaps do with a copy of the Makefile.in
 
-RUN cd DiFX-2.6.2 &&  perl -p -i -e 's/\$\{LEXLIB\}//g' applications/vex2difx/configure.ac
-RUN cd DiFX-2.6.2 &&  /bin/bash -c  "source setup.bash && ./install-difx --nodoc"
+#RUN cd DiFX-2.6.2 &&  perl -p -i -e 's/\$\{LEXLIB\}//g' applications/vex2difx/configure.ac
+RUN cd DiFX-2.6.2 &&  /bin/bash -c  "source setup.bash && ./install-difx --nodoc --withmonitor --withfb --withguiserver --withhops"
 RUN rm -rf DiFX-2.6.2
 
 
