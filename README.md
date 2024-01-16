@@ -25,3 +25,7 @@ so that the inheritance relationships between the images work.
  ----------------
     
 * to look at image sizes https://github.com/wagoodman/dive
+* failed builds https://stackoverflow.com/questions/26220957/how-can-i-inspect-the-file-system-of-a-failed-docker-build?rq=1 - in particular the following is necessary for
+newer dockers as the buildkit gets in the way of seeing images.
+   
+    DOCKER_BUILDKIT=0 docker build ... 
