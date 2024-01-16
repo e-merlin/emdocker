@@ -1,4 +1,4 @@
-FROM centos:7
+FROM rockylinux:9
 
 LABEL  author = "Paul Harrison" \
        description = "base run environment for centos-7"\
