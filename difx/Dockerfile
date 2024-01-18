@@ -1,4 +1,4 @@
-FROM jbo/deb-buildbase as builder
+FROM jbo/ubu-buildbase as builder
 
 LABEL  author = "Paul Harrison" \
        description = "difx" \
@@ -6,14 +6,14 @@ LABEL  author = "Paul Harrison" \
 
 
 
-#see https://www.atnf.csiro.au/vlbi/dokuwiki/doku.php/difx/installation
+#see https://github.com/difx/difx
 WORKDIR /usr/local/src
 
-RUN apt-get update && apt-get install -y  openmpi-bin libopenmpi-dev python libexpat1-dev fftw3-dev libgsl-dev \
+RUN apt-get update && apt-get install -y  pgplot5 openmpi-bin libopenmpi-dev python2 libexpat1-dev libfftw3-dev libgsl-dev \
      && apt-get clean  
 
       
-RUN svn export https://svn.atnf.csiro.au/difx/master_tags/DiFX-2.6.2
+RUN git clone https://github.com/difx/difx -b dev
 
 
 RUN wget ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot522.tar.gz && tar xvf pgplot522.tar.gz  && mkdir /usr/local/pgplot && cd /usr/local/pgplot \
