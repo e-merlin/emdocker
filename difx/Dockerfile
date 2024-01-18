@@ -13,8 +13,7 @@ RUN apt-get update && apt-get install -y  pgplot5 libplplot-dev openmpi-bin libo
      && apt-get clean  
 
       
-RUN git clone https://github.com/e-merlin/difx.git -b dev
-
+RUN git clone https://github.com/e-merlin/difx.git -b emubuntu
 
 
 
@@ -24,21 +23,16 @@ RUN git clone https://github.com/e-merlin/difx.git -b dev
 #         &&  /usr/local/src/pgplot/makemake /usr/local/src/pgplot linux g77_gcc_aout \
 #         && make FCOMPL=gfortran lib grfont.dat
 
-# this complexity is  because vex2difx needs ./configure --prefix=${DIFXROOT}  LEXLIB= lex setup is wrong - could perhaps do with a copy of the Makefile.in
 
-#RUN cd DiFX-2.6.2 &&  perl -p -i -e 's/\$\{LEXLIB\}//g' applications/vex2difx/configure.ac
-#RUN cd difx &&  /bin/bash -c  "source setup.bash && IPPROOT=/opt/intel/oneapi/ ./install-difx --nodoc --withmonitor --withfb --withguiserver --withhops"
-#RUN rm -rf DiFX-2.6.2
+#leave out hops for now
+RUN cd difx &&  /bin/bash -c  "source setup.bash && IPPROOT=/opt/intel/oneapi/ ./install-difx --nodoc --withmonitor --withfb --withguiserver"
+#RUN rm -rf difx
 #
 #
 ##TODO copy into own smaller as multi stage build
-#FROM jbo/deb-runbase
-## try to install only the runtime
-#RUN curl -fSLO https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB && apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB && rm  GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB \
-#      && echo deb https://apt.repos.intel.com/ipp all main > /etc/apt/sources.list.d/intel-ipp.list \
-#      && apt-get update && apt-get install -y intel-ipp-st-2019.5-281 intel-ipp-mt-2019.5-281 \
-#      && apt-get clean
-#COPY --from=builder /usr/local/ /usr/local/
+FROM jbo/ubu-runbase
+
+COPY --from=builder /usr/local/ /usr/local/
 
 
 

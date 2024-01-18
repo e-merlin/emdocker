@@ -7,7 +7,7 @@ LABEL  author = "Paul Harrison" \
 WORKDIR /usr/local/src
 
 RUN apt-get update && apt-get install -y apt-utils patch g++ make wget pkg-config \
- autoconf automake autotools-dev file gfortran gfortran-9 gnupg2 git subversion cmake \
+ autoconf automake autotools-dev libtool  file gfortran gfortran-9 gnupg2 git subversion cmake \
  bison flex doxygen python-is-python3 \
     && apt-get clean  \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
