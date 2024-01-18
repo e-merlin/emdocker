@@ -15,5 +15,5 @@ RUN apt-get update && apt-get install -y apt-utils patch g++ make wget pkg-confi
 #https://www.intel.com/content/www/us/en/docs/oneapi/installation-guide-linux/2024-0/apt.html
 RUN wget wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB|gpg --dearmor > /usr/share/keyrings/oneapi-archive-keyring.gpg \
       &&  echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" >/etc/apt/sources.list.d/oneAPI.list \
-      && apt-get update && apt-get install -y intel-ipp-2019.5-075
+      && apt-get update && apt-get install -y intel-oneapi-ipp-devel
     
