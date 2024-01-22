@@ -15,3 +15,11 @@ $(DEPENDS): $(DOCKERFILES) Makefile
 sinclude $(DEPENDS)
 $(IMAGES): %:
 	docker build -t $(REGISTRY)/$@ $(subst -,/,$@)
+
+corrlocal.tgz: difx
+	docker run --rm -d --name corr_tmp jbo/difx tail -f /dev/null
+	docker exec -t corr_tmp tar cvf /tmp/corrlocal.tgz /usr/local
+	docker cp corr_tmp:/tmp/corrlocal.tgz .
+	docker stop corr_tmp
+
+
