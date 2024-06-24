@@ -15,7 +15,6 @@ RUN /opt/conda/bin/conda create -y -n myenv python=3.8.16
 RUN apt-get install -y wsclean
 RUN apt-get install -y git
 RUN git clone -b casa6 https://github.com/e-merlin/eMERLIN_CASA_pipeline.git /home/eMERLIN_CASA_pipeline
-RUN cp /home/eMERLIN_CASA_pipeline/default_params.json /home/TS8004_C_001_20190801
 ENV PATH=/opt/conda/envs/myenv/bin:$PATH
 RUN pip3 install protobuf==3.20.*
 RUN pip3 install /home/eMERLIN_CASA_pipeline/.
