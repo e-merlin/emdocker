@@ -7,6 +7,9 @@ are also intended as the basis of singularity builds.
 The deb directory contains a debian build environment and the rhe directory a 
 Red Hat/Centos build environment.
 
+The casa6_conda directory contains a debian build environment with a conda installation
+of the casa software. 
+
 Some attempts at optimization, e.g. multi-stage builds to remove unnecessary 
 packages in the final image, are made to reduce the final image size. In addition
 some attempt at modularising the functionality is made so that it is obvious what the 
